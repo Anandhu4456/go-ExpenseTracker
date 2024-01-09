@@ -28,9 +28,10 @@ func NewUserRepo(client *mongo.Client, collection *mongo.Collection) interfaces.
 func (ur UserRepo) AddSection(userName string, buget float64, description string, createdAt time.Time) (models.Section, error) {
 
 	coll := ur.client.Database("Expense").Collection(ur.collection.Name())
-	if coll != nil {
-		log.Fatal(coll)
+	if coll == nil {
+		log.Fatal("failed to obtain collection",ur.collection.Name())
 	}
+	
 
 	section := models.Section{
 		UserName:    userName,

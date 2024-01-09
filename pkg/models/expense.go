@@ -7,7 +7,7 @@ import (
 )
 
 type Section struct {
-	ID primitive.ObjectID `json:"id"`
+	ID primitive.ObjectID `bson:"id"`
 	UserName string `json:"user_name"`
 	Buget float64 `json:"buget"`
 	Description string `json:"description"`
