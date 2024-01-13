@@ -9,13 +9,14 @@ import (
 
 type Config struct {
 	DB_HOST     string `json:"db_host"`
+	DB_USER 	string `json:"db_user"`
 	DB_NAME     string `json:"db_name"`
 	DB_PORT     string `json:"db_port"`
 	DB_PASSWORD string `json:"db_password"`
 }
 
 var envs = []string{
-	"DB_HOST", "DB_NAME", "DB_PORT", "DB_PASSWORD",
+	"DB_HOST","DB_USER", "DB_NAME", "DB_PORT", "DB_PASSWORD",
 }
 
 func LoadConfig() (Config, error) {

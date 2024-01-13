@@ -12,14 +12,20 @@ import (
 )
 
 func ConnectToDB(cfg config.Config) (*mongo.Client, error) {
-	mongoUrl := fmt.Sprintf("host=%s dbname=%s password=%s port=%s", cfg.DB_HOST, cfg.DB_NAME, cfg.DB_PASSWORD, cfg.DB_PORT)
+	mongoUrl := fmt.Sprintf("mongodb://%s:%s@%s:%s/%s", cfg.DB_USER, cfg.DB_PASSWORD, cfg.DB_HOST, cfg.DB_PORT, cfg.DB_NAME)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoUrl))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("client not found: ", err)
+	}
+	err = client.Ping(ctx, nil)
+	if err != nil {
+		log.Println("failed to connect : ", err)
+	} else {
+		log.Println("connected to mongodb...")
 	}
 	return client, nil
 }
-
