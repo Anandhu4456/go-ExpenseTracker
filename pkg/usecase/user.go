@@ -4,6 +4,7 @@ import (
 	"go-Expense/pkg/models"
 	"go-Expense/pkg/repository/interfaces"
 	services "go-Expense/pkg/usecase/interfaces"
+	"log"
 )
 
 type UserUsecase struct {
@@ -22,4 +23,13 @@ func (uu UserUsecase) AddSection(userName string, buget float64, description str
 		return models.Section{}, err
 	}
 	return insertedSection, nil
+}
+
+func (uu UserUsecase) DeleteSection(id string) error {
+	if err := uu.userRepo.DeleteSection(id); err != nil {
+		log.Println("deleting section failed", err)
+		return err
+	}
+	log.Println("section deleted")
+	return nil
 }

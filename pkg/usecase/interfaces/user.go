@@ -6,4 +6,5 @@ import (
 
 type UserUsecase interface {
 	AddSection(userName string, buget float64, description string) (models.Section, error)
+	DeleteSection(id string)error
 }
