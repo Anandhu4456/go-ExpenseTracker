@@ -48,8 +48,8 @@ func (usrH UserHandler) AddSection(c *gin.Context) {
 }
 
 func (usrH UserHandler) DeleteSection(c *gin.Context) {
-	id := c.Query("id")
-	if err := usrH.userUsecase.DeleteSection(id); err != nil {
+	hId := c.Param("id")
+	if err := usrH.userUsecase.DeleteSection(hId); err != nil {
 		errRes := response.ClientResponse(http.StatusBadRequest, "section deleting failed", nil, err.Error())
 		c.JSON(http.StatusBadRequest, errRes)
 		return

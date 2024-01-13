@@ -51,13 +51,14 @@ func (ur UserRepo) DeleteSection(id string) error {
 	hexId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		log.Println("error while getting hex id ", err)
+		log.Println("received hex id ",hexId)
 		return err
 	}
 	filter := bson.M{"_id": hexId}
 	coll := ur.client.Database("Expense").Collection("section")
 	result, err := coll.DeleteOne(context.TODO(), filter)
 	if err != nil {
-		log.Println("deleting section failed", err)
+		log.Println("deleting section failed due to :", err)
 		return err
 	}
 	log.Println("section deleted with id ", result.DeletedCount)
