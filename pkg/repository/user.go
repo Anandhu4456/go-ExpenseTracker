@@ -64,3 +64,24 @@ func (ur UserRepo) DeleteSection(id string) error {
 	log.Println("section deleted with id ", result.DeletedCount)
 	return nil
 }
+
+func (ur UserRepo)GetAllSection()([]primitive.M,error){
+	var sections []primitive.M
+	
+
+	coll:=ur.client.Database("Expense").Collection("section")
+	curser,err:=coll.Find(context.TODO(),bson.D{{}})
+	if err!=nil{
+		return []primitive.M{},err
+	}
+	for curser.Next(context.TODO()){
+		var oneSecton bson.M
+		if err:=curser.Decode(&oneSecton);err!=nil{
+			return []primitive.M{},err
+		}
+		sections = append(sections, oneSecton)
+	}
+	defer curser.Close(context.TODO())
+
+	return sections,nil
+}

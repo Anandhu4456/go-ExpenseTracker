@@ -9,6 +9,7 @@ import (
 
 func UserRoutes(engine *gin.RouterGroup, userHandler handlers.UserHandler) {
 	log.Println("setting up user routes...")
-	engine.POST("/addsection",userHandler.AddSection)
-	engine.DELETE("/deletesecton/:id",userHandler.DeleteSection)
+	engine.POST("/addsection", userHandler.AddSection)
+	engine.DELETE("/deletesecton/:id", userHandler.DeleteSection)
+	engine.GET("/getallsections", userHandler.GetAllSection)
 }

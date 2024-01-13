@@ -5,6 +5,8 @@ import (
 	"go-Expense/pkg/repository/interfaces"
 	services "go-Expense/pkg/usecase/interfaces"
 	"log"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type UserUsecase struct {
@@ -32,4 +34,13 @@ func (uu UserUsecase) DeleteSection(id string) error {
 	}
 	log.Println("section deleted")
 	return nil
+}
+
+func (uu UserUsecase) GetAllSection() ([]primitive.M, error) {
+	alldatas, err := uu.userRepo.GetAllSection()
+	if err != nil {
+		return []primitive.M{}, err
+	}
+	log.Println(alldatas)
+	return alldatas, nil
 }

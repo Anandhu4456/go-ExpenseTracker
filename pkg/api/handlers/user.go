@@ -57,3 +57,15 @@ func (usrH UserHandler) DeleteSection(c *gin.Context) {
 	success := response.ClientResponse(http.StatusOK, "section deleted", nil, nil)
 	c.JSON(http.StatusOK, success)
 }
+
+func (usrH UserHandler) GetAllSection(c *gin.Context) {
+	datas, err := usrH.userUsecase.GetAllSection()
+
+	if err != nil {
+		errRes := response.ClientResponse(http.StatusBadRequest, "retrieving all datas failed", nil, err.Error())
+		c.JSON(http.StatusBadRequest, errRes)
+		return
+	}
+	success := response.ClientResponse(http.StatusOK, "successfully retrieved all datas", datas, nil)
+	c.JSON(http.StatusOK, success)
+}
